@@ -22,4 +22,22 @@ class Cart extends Model
             $this->totalAmount = 0;
         }
     }
+    public function add($item){
+        $itemArray = [
+            'id' => $item->id,
+            'title' => $item->title,
+            'price' => $item->price,
+            'qty' => 0,
+            'image' => $item->image,
+        ];
+        if(!array_key_exists($item->id, $this->items)){
+            $this->items [$item->id] = $itemArray;
+            $this->totalQty++;
+            $this->totalAmount += $item->price;
+        }else{
+            $this->totalQty++;
+            $this->totalAmount+=$item->totalAmount;
+        }
+        $this->items[$item->id]['qty'] ++;
+    }
 }

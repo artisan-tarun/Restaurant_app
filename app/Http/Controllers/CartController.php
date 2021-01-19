@@ -84,6 +84,14 @@ class CartController extends Controller
         //
     }
     public function addItem(Item $item){
-        
+        if(session()->has('cart')){
+            $cart = new Cart(session()->get('cart'));
+        }else{
+            $cart = new Cart();
+        }
+        $cart->add($item);
+        //dd($cart);
+        session()->put('cart',$cart);
+        return back();
     }
 }
