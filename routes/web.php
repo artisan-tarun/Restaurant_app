@@ -11,6 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'IndexController@index')->name('index');
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('cart','CartController');
+Route::get('cart/add/{item}','CartController@addItem')->name('addItem');
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::resource('category','CategoryController');
+    Route::resource('item','ItemController');
+    Route::resource('user','UserController');
+    Route::resource('role','RoleController');
 });
