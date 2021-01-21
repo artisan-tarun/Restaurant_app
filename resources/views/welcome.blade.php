@@ -50,7 +50,7 @@
                             <h5 class="card-title mb-0" style="font-size: 18px;">{{$tab_item->title}}</h5>
                             <p class="card-text mb-1" style="height: 70px; font-size:14px">{{ str_limit($tab_item->description, 50)}}</p>
                             <h5><i class="fas fa-rupee-sign"></i> {{$tab_item->price}} \-</h5>
-                            <a href="{{route('addItem',$item)}}" class="btn btn-primary btn-block">Add To Table</a>
+                            <a href="{{route('addItem',$tab_item)}}" class="btn btn-primary btn-block">Add To Table</a>
                         </div>
                     </div>
                      </div>

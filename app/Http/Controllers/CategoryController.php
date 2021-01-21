@@ -13,10 +13,17 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Category $categoryModel)
+    public function index(Category $categoryModel, Request $request)
     {
-        $categories = Category::with('items')->get();
-        return view('admin.category.index',compact('categories','categoryModel'));
+        $status = $request->get('status');
+        if($status == 'trash'){
+            $categories = Category::onlyTrashed()->get();
+            $onlyTrashed = TRUE;
+        }else{
+            $categories = Category::with('items')->get();
+            $onlyTrashed = FALSE;
+        }
+        return view('admin.category.index',compact('categories','categoryModel','onlyTrashed'));
     }
 
     /**
@@ -35,12 +42,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\CategoryRequest $request)
+    public function store(Requests\CategoryRequest $request, Category $category)
     {
-        $category = new Category();
-        $category->title = $request->title;
-        $category->description = $request->description;
-        $category->save();
+        $data = $request->all();
+        $category->create($data);
         return redirect(route('category.index'))->with('save_msg','New Category Added');
     }
 
@@ -86,6 +91,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect(route('category.index'))->with('trash_msg','Category Deleted');
+    }
+    public function restore($id){
+        $category = Category::withTrashed()->findorFail($id);
+        $category->restore();
+        return redirect(route('category.index'))->with('save_msg','Category Restored');
     }
 }

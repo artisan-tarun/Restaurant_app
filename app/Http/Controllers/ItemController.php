@@ -13,10 +13,17 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Item $itemModel)
+    public function index(Item $itemModel, Request $request)
     {
-        $items = Item::all();
-        return view('admin.item.index',compact('items','itemModel'));
+        $status = $request->get('status');
+        if($status == 'trash'){
+            $items = Item::onlyTrashed()->get();
+            $onlyTrashed = TRUE;
+        }else{
+            $items = Item::all();
+            $onlyTrashed = FALSE;    
+        }
+        return view('admin.item.index',compact('items','itemModel','onlyTrashed'));
     }
 
     /**
@@ -37,13 +44,8 @@ class ItemController extends Controller
      */
     public function store(Item $item,Requests\ItemRequest $request)
     {
-        $item->title = $request->title;
-        $item->description = $request->description;
-        $item->status = $request->status;
-        $item->image = 'image';
-        $item->category_id = $request->category_id;
-        $item->price = $request->price;
-        $item->save();
+        $data = $request->all();
+        $item->create($data);
         return redirect(route('item.index'))->with('save_msg','New Item added to menu');
     }
 
@@ -89,6 +91,12 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+        return redirect(route('item.index'))->with('trash_msg','Item Moved to Trash');
+    }
+    public function restore($id){
+        $item = Item::withTrashed()->findOrFail($id);
+        $item->restore();
+        return redirect(route('item.index'))->with('save_msg','Item Restored');
     }
 }

@@ -22,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->decimal('price', 10, 2);
             $table->boolean('status');
             $table->string('image');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

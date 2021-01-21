@@ -34,8 +34,8 @@
         <div id="user" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage:</h6>
-            <a class="collapse-item" href="{{route('user.index')}}">View All</a>
-            <a class="collapse-item" href="">Trash</a>
+            <a class="collapse-item" href="{{route('user.index')}}?status=all">View All</a>
+            <a class="collapse-item" href="{{route('user.index')}}?status=trash">Trash</a>
           </div>
         </div>
       </li>
@@ -48,8 +48,8 @@
         <div id="role" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage:</h6>
-            <a class="collapse-item" href="{{route('role.index')}}">View All</a>
-            <a class="collapse-item" href="">Trash</a>
+            <a class="collapse-item" href="{{route('role.index')}}?status=all">View All</a>
+            <a class="collapse-item" href="{{route('role.index')}}?status=trash">Trash</a>
           </div>
         </div>
       </li>
@@ -62,8 +62,8 @@
         <div id="category" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage:</h6>
-            <a class="collapse-item" href="{{route('category.index')}}">View All</a>
-            <a class="collapse-item" href="">Trash</a>
+            <a class="collapse-item" href="{{route('category.index')}}?status=all">View All</a>
+            <a class="collapse-item" href="{{route('category.index')}}?status=trash">Trash</a>
           </div>
         </div>
       </li>
@@ -76,8 +76,8 @@
         <div id="item" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Manage:</h6>
-            <a class="collapse-item" href="{{route('item.index')}}">View All</a>
-            <a class="collapse-item" href="">Trash</a>
+            <a class="collapse-item" href="{{route('item.index')}}?status=all">View All</a>
+            <a class="collapse-item" href="{{route('item.index')}}?status=trash">Trash</a>
           </div>
         </div>
       </li>

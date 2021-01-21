@@ -13,10 +13,17 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Role $roleModel)
+    public function index(Role $roleModel, Request $request)
     {
-        $roles = Role::with('users')->get();
-        return view('admin.role.index',compact('roles','roleModel'));
+        $status = $request->get('status');
+        if($status == 'trash'){
+            $roles = Role::onlyTrashed()->get();
+            $onlyTrashed = TRUE;
+        }else{
+            $roles = Role::with('users')->get();
+            $onlyTrashed = FALSE;
+        }
+        return view('admin.role.index',compact('roles','roleModel','onlyTrashed'));
     }
 
     /**
@@ -35,13 +42,10 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\RoleRequest $request)
+    public function store(Requests\RoleRequest $request, Role $role)
     {
         $data = $request->all();
-        $role = new Role();
-        $role->title = $data['title'];
-        $role->description = $data['description'];
-        $role->save();
+        $role->create($data);
         return redirect(route('role.index'))->with('save_msg','New Role Created!!!');
     }
 
@@ -87,6 +91,12 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return redirect(route('role.index'))->with('trash_msg','Item moved to Trash');
+    }
+    public function restore($id){
+        $role = Role::withTrashed()->findOrFail($id);
+        $role->restore();
+        return redirect(route('role.index'))->with('save_msg','Role Restored');
     }
 }

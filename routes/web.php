@@ -23,7 +23,17 @@ Route::get('cart/add/{item}','CartController@addItem')->name('addItem');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::resource('category','CategoryController');
+    Route::get('category/{id}/restore','CategoryController@restore')->name('category.restore');
+    Route::delete('category{category}/forceDelete','CategoryController@forceDelete')->name('category.forceDelete');
+    
     Route::resource('item','ItemController');
+    Route::get('item/{id}/restore','ItemController@restore')->name('item.restore');
+    
+    
     Route::resource('user','UserController');
+    
+
     Route::resource('role','RoleController');
+    Route::get('role/{id}/restore','RoleController@restore')->name('role.restore');
+
 });
