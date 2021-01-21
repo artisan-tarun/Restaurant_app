@@ -15,6 +15,7 @@ class ItemController extends Controller
      */
     public function index(Item $itemModel, Request $request)
     {
+        $title = 'Admin | Category';
         $status = $request->get('status');
         if($status == 'trash'){
             $items = Item::onlyTrashed()->get();
@@ -23,7 +24,7 @@ class ItemController extends Controller
             $items = Item::all();
             $onlyTrashed = FALSE;    
         }
-        return view('admin.item.index',compact('items','itemModel','onlyTrashed'));
+        return view('admin.item.index',compact('items','itemModel','onlyTrashed','title'));
     }
 
     /**
@@ -78,9 +79,11 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Requests\ItemRequest $request, Item $item)
     {
-        //
+        $data = $request->all();
+        $item->update($data);
+        return back()->with('save_msg','Item Updated');
     }
 
     /**
@@ -97,6 +100,11 @@ class ItemController extends Controller
     public function restore($id){
         $item = Item::withTrashed()->findOrFail($id);
         $item->restore();
-        return redirect(route('item.index'))->with('save_msg','Item Restored');
+        return back()->with('save_msg','Item Restored');
+    }
+    public function forceDelete($id){
+        $item = Item::withTrashed()->findOrFail($id);
+        $item->forceDelete();
+        return back()->with('force_delete_msg','Item Deleted Permanently');
     }
 }

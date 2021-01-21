@@ -29,7 +29,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="{{ route('item.restore',$item->id) }}">Restore</a>
-                                    {!! Form::open(['method' => 'DELETE','route' => ['item.destroy',$item->id]]) !!}
+                                    {!! Form::open(['method' => 'DELETE','route' => ['item.forceDelete',$item->id]]) !!}
                                     <button class="dropdown-item">Delete</button>
                                     {!! Form::close() !!}
                                 </div>

@@ -15,6 +15,7 @@ class RoleController extends Controller
      */
     public function index(Role $roleModel, Request $request)
     {
+        $title = 'Admin | Category';
         $status = $request->get('status');
         if($status == 'trash'){
             $roles = Role::onlyTrashed()->get();
@@ -23,7 +24,7 @@ class RoleController extends Controller
             $roles = Role::with('users')->get();
             $onlyTrashed = FALSE;
         }
-        return view('admin.role.index',compact('roles','roleModel','onlyTrashed'));
+        return view('admin.role.index',compact('roles','roleModel','onlyTrashed','title'));
     }
 
     /**
@@ -78,9 +79,11 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Requests\RoleRequest $request, Role $role)
     {
-        //
+        $data = $request->all();
+        $role->update($data);
+        return back()->with('save_msg','Role Updated');
     }
 
     /**
@@ -98,5 +101,10 @@ class RoleController extends Controller
         $role = Role::withTrashed()->findOrFail($id);
         $role->restore();
         return redirect(route('role.index'))->with('save_msg','Role Restored');
+    }
+    public function forceDelete($id){
+        $role = Role::withTrashed()->findOrFail($id);
+        $role->forceDelete();
+        return back()->with('force_delete_msg','Role Deleted Permanently');
     }
 }

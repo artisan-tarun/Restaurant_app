@@ -23,9 +23,18 @@ class RoleRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'title' => 'required|unique:roles',
             'description' => 'required',
         ];
+
+        switch($this->method()){
+            case 'PUT':
+                $rules['title'] = 'required';
+            case 'PATCH':
+            
+            break;
+        }
+        return $rules;
     }
 }

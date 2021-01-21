@@ -23,12 +23,21 @@ class ItemRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'title' => 'required|unique:items',
             'description' => 'required',
             'category_id' => 'required',
             'status' => 'required',
             'price' => 'required',
         ];
+
+        switch($this->method()) {
+            case 'PUT' :
+                $rules['title'] = 'required';
+            case 'PATCH' :
+
+            break;
+        }
+        return $rules;
     }
 }

@@ -15,6 +15,7 @@ class CategoryController extends Controller
      */
     public function index(Category $categoryModel, Request $request)
     {
+        $title = 'Admin | Category';
         $status = $request->get('status');
         if($status == 'trash'){
             $categories = Category::onlyTrashed()->get();
@@ -23,7 +24,7 @@ class CategoryController extends Controller
             $categories = Category::with('items')->get();
             $onlyTrashed = FALSE;
         }
-        return view('admin.category.index',compact('categories','categoryModel','onlyTrashed'));
+        return view('admin.category.index',compact('categories','categoryModel','onlyTrashed','title'));
     }
 
     /**
@@ -78,9 +79,11 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Requests\CategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->all();
+        $category->update($data);
+        return back()->with('save_msg','Category Updated');
     }
 
     /**
@@ -97,6 +100,11 @@ class CategoryController extends Controller
     public function restore($id){
         $category = Category::withTrashed()->findorFail($id);
         $category->restore();
-        return redirect(route('category.index'))->with('save_msg','Category Restored');
+        return back()->with('save_msg','Category Restored');
+    }
+    public function forceDelete($id){
+        $category = Category::withTrashed()->findOrFail($id);
+        $delete = $category->forceDelete();
+        return back()->with('force_delete_msg','Category Deleted Permanently');
     }
 }

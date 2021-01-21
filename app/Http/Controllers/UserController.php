@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Role;
 
 class UserController extends Controller
 {
@@ -17,8 +18,10 @@ class UserController extends Controller
      */
     public function index(User $userModel)
     {
+        $title = 'Admin | Category';
         $users = User::all();
-        return view('admin.user.index',compact('users','userModel'));
+        $roles = Role::all();
+        return view('admin.user.index',compact('users','userModel','title','roles'));
     }
 
     /**
@@ -37,13 +40,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\UserRequest $request)
+    public function store(Requests\UserRequest $request, User $user)
     {   
         $data = $request->all();
-        $user = new User();
         $user->name = $data['name'];
         $user->role_id = $data['role_id'];
-        $user->password = $data['password'];
+        $user->password = Hash::make($data['password']);
         $user->email = $data['email'];
         $user->save();
         return redirect(route('user.index'))->with('save_msg','User Saved Successfully');
@@ -92,5 +94,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function updateRole($id, $role_id){
+        $user = User::findOrFail($id);
+        $user->role_id = $role_id;
+        $user->save();
+        return back()->with('save_msg','Role Updated');
     }
 }

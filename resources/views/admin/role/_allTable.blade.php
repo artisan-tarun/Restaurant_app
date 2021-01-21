@@ -31,13 +31,50 @@
                                     Options
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editRoleModal_{{$role->id}}">Edit</button>
                                     {!! Form::open(['method' => 'DELETE','route' => ['role.destroy',$role->id]]) !!}
                                     <button class="dropdown-item">Delete</button>
                                     {!! Form::close() !!}
                                 </div>
                             </div>
                         </td>
+                        <!--Create Role Model-->
+                        <div class="modal fade" id="editRoleModal_{{$role->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLongTitle">Edit({{$role->title}})</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    {!! Form::model($role , ['method' => 'PUT' , 'route' => ['role.update',$role->id]])!!}
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            {!! Form::label('title') !!}
+                                            {!! Form::text('title',null, ['class' => 'form-control']) !!}
+                                            @error('title')
+                                              <span style="color: red;">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('description')!!}
+                                            {!! Form::textarea('description',null ,['class' => 'form-control', 'rows' => 2])!!}
+                                            @error('description')
+                                              <span style="color: red;">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="submit" class="btn btn-primary">Create</button>
+                                    </div>
+                                    {!! Form::close() !!}
+                                  </div>
+                                </div>
+                              </div>
+
+                        <!--/Create Role Model-->
                     </tr>
                     @endforeach
                   </tbody>

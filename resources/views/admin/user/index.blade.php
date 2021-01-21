@@ -43,10 +43,21 @@
                     <tr>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
-                        <td>{{$user->role->title}}</td>
+                        <td>
+                        <div class="dropdown">
+                                <button class="btn btn-primary btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  {{$user->role->title}}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @foreach($roles as $role)
+                                    <a class="dropdown-item" href="{{route('user.updateRole',[$user->id,$role->id])}}">{{$role->title}}</a>
+                                @endforeach
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-primary btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Options
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

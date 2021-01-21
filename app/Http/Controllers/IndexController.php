@@ -9,8 +9,9 @@ use App\Item;
 class IndexController extends Controller
 {
     public function index(){
+        $title = 'Restaurant App | Home ';
         $popular = Item::inRandomOrder()->limit(12)->get();
         $categories = Category::with('items')->get();
-        return view('welcome',compact('categories','popular'));
+        return view('welcome',compact('categories','popular','title'));
     }
 }
