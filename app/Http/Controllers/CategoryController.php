@@ -81,6 +81,8 @@ class CategoryController extends Controller
      */
     public function update(Requests\CategoryRequest $request, Category $category)
     {
+        $this->authorize("update", $category);
+
         $data = $request->all();
         $category->update($data);
         return back()->with('save_msg','Category Updated');
@@ -94,6 +96,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $this->authorize("delete", $category);
+
         $category->delete();
         return redirect(route('category.index'))->with('trash_msg','Category Deleted');
     }

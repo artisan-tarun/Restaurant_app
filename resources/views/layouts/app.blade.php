@@ -35,7 +35,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                                <a class="nav-link" href="">{{session()->has('cart')?session()->get('cart')->totalQty : 0}}</a>
+                                <a class="nav-link" href=""></a>
                             </li>
                     </ul>
 

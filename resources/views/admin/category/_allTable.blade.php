@@ -22,7 +22,7 @@
                       <td>{{$category->description}}</td>
                       <td>
                         @foreach($category->items as $item)
-                            <a href="#" class="btn btn-success">{{$item->title}}</a>
+                            <a href="#" class="btn btn-success mb-1">{{$item->title}}</a>
                         @endforeach
                       </td>
                       <td>
@@ -31,10 +31,14 @@
                                 Options
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @can('update',$category)
                               <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editCategoryModal_{{$category->id}}">Edit</button>
+                            @endcan
+                            @can('delete',$category)
                               {!! Form::open(['method' => 'DELETE' , 'route' => ['category.destroy',$category->id]]) !!}
                               <button class="dropdown-item">Delete</button>
                               {!! Form::close() !!}
+                            @endcan
                             </div>
                         </div>
                       </td>

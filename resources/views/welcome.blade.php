@@ -66,7 +66,7 @@
         <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h3 class="m-0 font-weight-bold text-primary">Your Table</h3>
+                  <h3 class="m-0 font-weight-bold text-primary">Your Table ({{session()->has('cart')?session()->get('cart')->totalQty : 0}})</h3>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -82,27 +82,27 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                @for($i = 0 ; $i< 3 ; $i++)
+                @foreach($carts->items as $cart)
                     <div class="row">
                         <div class="col-sm-4">
                             <img src="http://placehold.it/80X80&text=No+Image" class="card-img-top img-fluid" alt="...">
                         </div>
                         <div class="col-sm-8">
                             <p>
-                                Item: Name <br>
-                                Quantity: 2 units <br>
-                                Amount: 120 br
+                                Item: {{$cart['title']}} <br>
+                                Quantity: {{$cart['qty']}} <br>
+                                Amount: {{$cart['price']}} br
                             </p>
                         </div>
                     </div>
-                @endfor
+                @endforeach
                 <hr>
                 <div class="row">
                     <div class="col-sm-4">
                         <b> Total </b>
                     </div>
                     <div class="col-sm-8">
-                         240 /-
+                         {{$carts->totalAmount}} /-
                     </div>
                 </div>
                 <hr>

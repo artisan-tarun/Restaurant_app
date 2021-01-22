@@ -8,7 +8,7 @@ class Cart extends Model
 {
     public $items = [];
     public $totalQty;
-    public $totalAmount;
+    public $itemTotal;
 
     public function __construct($cart = NULL)
     {

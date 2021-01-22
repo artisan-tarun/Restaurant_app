@@ -26,6 +26,8 @@
         Interface
       </div>
 
+      @if(Auth::user()->role_id === 1)
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="user">
         <i class="fas fa-users"></i>
@@ -81,6 +83,74 @@
           </div>
         </div>
       </li>
+
+      @elseif(Auth::user()->role_id === 2)
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="user">
+        <i class="fas fa-users"></i>
+          <span>Users</span>
+        </a>
+        <div id="user" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manage:</h6>
+            <a class="collapse-item" href="{{route('user.index')}}?status=all">View All</a>
+            <a class="collapse-item" href="{{route('user.index')}}?status=trash">Trash</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#category" aria-expanded="true" aria-controls="category">
+        <i class="fas fa-tags"></i>
+          <span>Category</span>
+        </a>
+        <div id="category" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manage:</h6>
+            <a class="collapse-item" href="{{route('category.index')}}?status=all">View All</a>
+            <a class="collapse-item" href="{{route('category.index')}}?status=trash">Trash</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#item" aria-expanded="true" aria-controls="item">
+        <i class="fas fa-tasks"></i>
+          <span>Items</span>
+        </a>
+        <div id="item" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manage:</h6>
+            <a class="collapse-item" href="{{route('item.index')}}?status=all">View All</a>
+            <a class="collapse-item" href="{{route('item.index')}}?status=trash">Trash</a>
+          </div>
+        </div>
+      </li>
+
+      @elseif(Auth::user()->role_id === 3)
+
+      
+
+      @elseif(Auth::user()->role_id === 4)
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#item" aria-expanded="true" aria-controls="item">
+        <i class="fas fa-tasks"></i>
+          <span>Items</span>
+        </a>
+        <div id="item" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manage:</h6>
+            <a class="collapse-item" href="{{route('item.index')}}?status=all">View All</a>
+            <a class="collapse-item" href="{{route('item.index')}}?status=trash">Trash</a>
+          </div>
+        </div>
+      </li>
+
+      @else
+
+      @endif
 
     
       <!-- Divider -->
