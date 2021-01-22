@@ -79,14 +79,22 @@
                 </div>
                 <div class="form-group">
                   {!! Form::label('status') !!}
-                  {!! Form::select('status', ['1' => 'Active', 'S' => 'Inactive'], '1' ,['class' => 'form-control']) !!}
+                  {!! Form::select('status', ['1' => 'Active', '0' => 'Inactive'], '1' ,['class' => 'form-control']) !!}
                   @error('status')
                       <span style="color: red;">{{$message}}</span>
                   @enderror
                 </div>
                 <div class="form-group">
                   {!! Form::label('image') !!}
-                  {!! Form::file('image') !!}
+                  <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 200px; max-height: 200px;"></div>
+                        <div>
+                            <span class="btn btn-outline-secondary btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span>
+                                <input type="file" name="image" id="image">
+                            </span>
+                            <a href="#" class="btn btn-outline-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
+                        </div>
+                    </div>
                   @error('image')
                       <span style="color: red;">{{$message}}</span>
                   @enderror

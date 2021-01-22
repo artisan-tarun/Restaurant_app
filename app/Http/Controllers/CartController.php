@@ -94,4 +94,8 @@ class CartController extends Controller
         session()->put('cart',$cart);
         return back();
     }
+    public function resetSession(){
+        session()->flush();
+        return back();
+    }
 }

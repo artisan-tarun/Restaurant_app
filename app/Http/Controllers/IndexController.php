@@ -13,7 +13,8 @@ class IndexController extends Controller
         $title = 'Restaurant App | Home ';
         $popular = Item::inRandomOrder()->limit(12)->get();
         $categories = Category::with('items')->get();
-
+        //$sessionList = session()->all();
+        //return $sessionList;
         if(session()->has('cart')){
             $carts = new Cart(session()->get('cart'));
         }else{

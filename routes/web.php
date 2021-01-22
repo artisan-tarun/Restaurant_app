@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('cart','CartController');
 Route::get('cart/add/{item}','CartController@addItem')->name('addItem');
 
+Route::get('cart/reset/session','CartController@resetSession')->name('resetSession');
+
 Route::group(['middleware' => 'auth'], function(){
     Route::resource('category','CategoryController');
     Route::get('category/{id}/restore','CategoryController@restore')->name('category.restore');

@@ -8,7 +8,7 @@ class Cart extends Model
 {
     public $items = [];
     public $totalQty;
-    public $itemTotal;
+    public $totalAmount;
 
     public function __construct($cart = NULL)
     {
@@ -36,7 +36,7 @@ class Cart extends Model
             $this->totalAmount += $item->price;
         }else{
             $this->totalQty++;
-            $this->totalAmount+=$item->totalAmount;
+            $this->totalAmount+= $this->totalAmount;
         }
         $this->items[$item->id]['qty'] ++;
     }

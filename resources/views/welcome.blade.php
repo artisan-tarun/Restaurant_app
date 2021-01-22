@@ -82,6 +82,9 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
+                @if(Session::has('cart'))
+
+
                 @foreach($carts->items as $cart)
                     <div class="row">
                         <div class="col-sm-4">
@@ -89,9 +92,11 @@
                         </div>
                         <div class="col-sm-8">
                             <p>
+                                {{$cart['id']}}
                                 Item: {{$cart['title']}} <br>
                                 Quantity: {{$cart['qty']}} <br>
-                                Amount: {{$cart['price']}} br
+                                Price/Unit : {{$cart['price']}} 
+                                Amount: {{$cart['price'] * $cart['qty']}} <br>
                             </p>
                         </div>
                     </div>
@@ -105,14 +110,15 @@
                          {{$carts->totalAmount}} /-
                     </div>
                 </div>
+
+                @endif
                 <hr>
-                <button class="btn btn-success btn-block">Pay Online</button> 
+                <a class="btn btn-success btn-block" href="{{route('resetSession')}}">Pay Online</a> 
                 <p class="text-center mb-0"> <b> or </b> </p>
                 <button class="btn btn-primary btn-block">Pay Offline</button>
                 </div>
               </div>
         </div>
     </div>
-    
 </div>
 @endsection

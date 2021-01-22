@@ -31,3 +31,4 @@
       } );  
   } );
 </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/js/jasny-bootstrap.min.js"></script>
