@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cart;
 use App\Item;
 use Illuminate\Http\Request;
+use App\Http\Requests;
 
 class CartController extends Controller
 {
@@ -94,6 +95,26 @@ class CartController extends Controller
         session()->put('cart',$cart);
         return back();
     }
+
+    public function updateItem(Requests\CartRequest $request, Item $item){
+       $cart = new Cart(session()->get('cart'));
+       $cart->updateQty($item->id,$request->qty);
+       session()->put('cart',$cart);
+       return back();
+    }
+
+    public function removeItem(Item $item){
+        $cart = new Cart(session()->get('cart'));
+        $cart->removeItem($item->id);
+        if($cart->totalQty<=0){
+            session()->flush();
+        }else{
+            session()->put('cart',$cart);
+        }
+        return back();
+    }
+
+
     public function resetSession(){
         session()->flush();
         return back();

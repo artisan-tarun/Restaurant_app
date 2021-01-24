@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
+use Image;
 use App\Item;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Carbon\Carbon;
-use Image;
+
 
 class ItemController extends Controller
 {
@@ -15,9 +17,13 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(){   
+    protected $uploadPath;
+
+    public function __construct()
+    {
         $this->uploadPath = public_path((config('img.image.directory')));
     }
+   
     public function index(Item $itemModel, Request $request)
     {
         $title = 'Admin | Category';
@@ -48,7 +54,7 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Item $item,Requests\ItemRequest $request)
+    public function store(Requests\ItemRequest $request, Item $item)
     {
         $data = $this->handleRequest($request);
         $item->create($data);

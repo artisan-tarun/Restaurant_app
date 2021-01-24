@@ -30,8 +30,8 @@ class RoleSeeder extends Seeder
                 'description' => 'Chef Access'
             ],
             [
-                'title' => 'Guest',
-                'description' => 'Guest Access'
+                'title' => 'Table',
+                'description' => 'Table Number'
             ]
         ];
 

@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('viewOrder')}}">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -84,6 +84,20 @@
         </div>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#order" aria-expanded="true" aria-controls="order">
+        <i class="fas fa-tasks"></i>
+          <span>Orders</span>
+        </a>
+        <div id="order" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manage:</h6>
+            <a class="collapse-item" href="{{route('order.index')}}?status=all">View All</a>
+            <a class="collapse-item" href="{{route('order.index')}}?status=trash">Trash</a>
+          </div>
+        </div>
+      </li>
+
       @elseif(Auth::user()->role_id === 2)
 
       <li class="nav-item">
@@ -144,6 +158,20 @@
             <h6 class="collapse-header">Manage:</h6>
             <a class="collapse-item" href="{{route('item.index')}}?status=all">View All</a>
             <a class="collapse-item" href="{{route('item.index')}}?status=trash">Trash</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#order" aria-expanded="true" aria-controls="order">
+        <i class="fas fa-tasks"></i>
+          <span>Orders</span>
+        </a>
+        <div id="order" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Manage:</h6>
+            <a class="collapse-item" href="{{route('order.index')}}?status=all">View All</a>
+            <a class="collapse-item" href="{{route('order.index')}}?status=trash">Trash</a>
           </div>
         </div>
       </li>

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'IndexController@index')->name('index');
-
+Route::get('menu/','IndexController@menu')->name('menu');
 
 
 Auth::routes();
@@ -20,6 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('cart','CartController');
 Route::get('cart/add/{item}','CartController@addItem')->name('addItem');
+Route::post('cart/{item}','CartController@updateItem')->name('updateItem');
+Route::post('cart/{item}/remove/','CartController@removeItem')->name('removeItem');
 
 Route::get('cart/reset/session','CartController@resetSession')->name('resetSession');
 
@@ -38,5 +40,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('role','RoleController');
     Route::get('role/{id}/restore','RoleController@restore')->name('role.restore');
     Route::delete('role/{id}/forceDelete','RoleController@forceDelete')->name('role.forceDelete');
+
+    Route::resource('order','OrderController');
+    Route::get('cart/save_order/order','OrderController@saveOrder')->name('saveOrder');
+    Route::get('cart/view_orders/orders','OrderController@viewOrder')->name('viewOrder');
 
 });

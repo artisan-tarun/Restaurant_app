@@ -47,7 +47,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            {!! Form::model($itemModel , ['method' => 'POST' , 'route' => 'item.store'])!!}
+            {!! Form::model($itemModel , ['method' => 'POST' , 'route' => 'item.store' , 'files' => true])!!}
             <div class="modal-body">
                 <div class="form-group">
                     {!! Form::label('title') !!}
@@ -85,8 +85,9 @@
                   @enderror
                 </div>
                 <div class="form-group">
-                  {!! Form::label('image') !!}
-                  <div class="fileinput fileinput-new" data-provides="fileinput">
+                  {!! Form::label('image', 'Item Image') !!}
+                  {!! Form::file('image') !!}
+                  <!--<div class="fileinput fileinput-new" data-provides="fileinput">
                         <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 200px; max-height: 200px;"></div>
                         <div>
                             <span class="btn btn-outline-secondary btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span>
@@ -94,7 +95,7 @@
                             </span>
                             <a href="#" class="btn btn-outline-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
                         </div>
-                    </div>
+                    </div>-->
                   @error('image')
                       <span style="color: red;">{{$message}}</span>
                   @enderror
