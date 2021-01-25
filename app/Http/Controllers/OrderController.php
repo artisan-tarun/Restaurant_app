@@ -41,6 +41,7 @@ class OrderController extends Controller
                             <hr>
                             {{ $order->totalAmount }}
                         </td>*/
+
         return view('admin.order.index',compact('orders','title','onlyTrashed'));
     }
 
@@ -126,5 +127,10 @@ class OrderController extends Controller
 
     public function viewOrder(){
         return "view Order";
+    }
+    public function updateStatus(Order $order,$status){
+        $order->status = $status;
+        $order->save();
+        return back();
     }
 }

@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('role/{id}/forceDelete','RoleController@forceDelete')->name('role.forceDelete');
 
     Route::resource('order','OrderController');
+    Route::get('order/{order}/update/{status}','OrderController@updateStatus')->name('orderStatus');
     Route::get('cart/save_order/order','OrderController@saveOrder')->name('saveOrder');
     Route::get('cart/view_orders/orders','OrderController@viewOrder')->name('viewOrder');
 
