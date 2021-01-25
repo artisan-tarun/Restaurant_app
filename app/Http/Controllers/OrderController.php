@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,15 +19,15 @@ class OrderController extends Controller
         $title = 'Admin | orders';
         $status = $request->get('status');
         if($status == 'trash'){
-            $order_array = Order::onlyTrashed()->get();
+            $orders = Order::onlyTrashed()->get();
             $onlyTrashed = TRUE;
         }else{
-            $order_array = Order::get();
+            $orders = Order::get();
             $onlyTrashed = FALSE;
         }
-        $orders = $order_array->transform(function($cart , $key){
+        /*$orders = $order_array->transform(function($cart , $key){
             return unserialize($cart->cart);
-        });
+        });*/
         //dd($orders);
         /*foreach($orders as $order){
             foreach($order->items as $item){
@@ -34,6 +35,12 @@ class OrderController extends Controller
             }
             echo "<hr>";
         }*/
+        /*foreach($order->items as $abc)
+                                  {{ $abc['title']}} : {{ $abc['qty']}} <br>
+                            @endforeach
+                            <hr>
+                            {{ $order->totalAmount }}
+                        </td>*/
         return view('admin.order.index',compact('orders','title','onlyTrashed'));
     }
 
@@ -102,16 +109,18 @@ class OrderController extends Controller
     {
         //
     }
-    public function saveOrder(Order $order){
+    public function saveOrder(Order $order,Cart $cart){
         
         $data = session()->get('cart');
         //dd($data);
         $order->user_id = Auth::user()->id;
-        $order->cart = serialize($data);
-        $order->quantity = $data->totalQty;
-        $order->amount = $data->totalAmount;
         $order->status = 'New Order';
         $order->save();
+
+        $cart->order_id = $order->id;
+        $cart->cart_details = serialize($data);
+        $cart->save();
+        
         return back(); 
     }
 

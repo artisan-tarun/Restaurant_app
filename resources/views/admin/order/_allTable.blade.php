@@ -16,14 +16,9 @@
                   <tbody>
                   @foreach($orders as $order)
                     <tr>
-                        <td>ABC</td>
-                        <td>
-                            @foreach($order->items as $abc)
-                                  {{ $abc['title']}} : {{ $abc['qty']}} <br>
-                            @endforeach
-                            <hr>
-                            {{ $order->totalAmount }}
-                        </td>
+                        <td>{{$order->user->name}}</td>
+                        <td>{{$order->cart->cart_details}}</td>
+                        
                         <td>
                         <div class="dropdown">
                           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -4,12 +4,12 @@
         'image' => [
             'directory' => 'image',
             'original' => [
-                'width' => 200,
-                'height' => 200
+                'width' => 1000,
+                'height' => 1000
             ],
             'thumbnail' => [
-                'width' => 80,
-                'height' => 80
+                'width' => 300,
+                'height' => 300
             ]
         ]
     ];

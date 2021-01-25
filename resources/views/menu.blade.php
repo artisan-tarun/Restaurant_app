@@ -27,7 +27,7 @@
             @foreach($popular as $item)
                 <div class="col-sm-3 mb-2">
                     <div class="card">
-                        <img src="https://loremflickr.com/80/80/food?random={{$loop->iteration}}" class="card-img-top img-fluid" alt="...">
+                        <img src="{{$item->image_url}}" class="card-img-top img-fluid" alt="...">
                         <div class="card-body">
                             <h5 class="card-title mb-0" style="font-size: 18px;">{{ $item->title }}</h5>
                             <p class="card-text mb-1 text-justify" style="height: 70px; font-size:14px">{{ str_limit($item->description,50)}}</p>
@@ -45,7 +45,7 @@
                      @foreach($category_tabs->items as $tab_item)
                      <div class="col-sm-3 mb-2">
                      <div class="card">
-                        <img src="https://loremflickr.com/80/80/food?random={{$loop->iteration}}" class="card-img-top img-fluid" alt="...">
+                        <img src="{{$tab_item->image_url}}" class="card-img-top img-fluid" alt="...">
                         <div class="card-body">
                             <h5 class="card-title mb-0" style="font-size: 15px;">{{$tab_item->title}}</h5>
                             <p class="card-text mb-1" style="height: 70px; font-size:13px">{{ str_limit($tab_item->description, 50)}}</p>
@@ -87,7 +87,7 @@
                 @foreach($carts->items as $cart)
                     <div class="row mb-0">
                         <div class="col-sm-4" style="padding:3px;margin:0">
-                            <img src="https://loremflickr.com/30/30/food?random={{$loop->iteration}}" class="card-img-top img-fluid" alt="...">
+                            <img src="{{$item->image_url}}" class="card-img-top img-fluid" alt="...">
                         </div>
                         <div class="col-sm-6 text-justify" style="padding:3px;margin:0">
                             <p style="font-size: .7rem;">

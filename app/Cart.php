@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cart extends Model
 {
+    use SoftDeletes;
     public $items = [];
     public $totalQty;
     public $totalAmount;
@@ -55,5 +57,9 @@ class Cart extends Model
             $this->totalAmount-=$this->items[$id]['price']*$this->items[$id]['qty'];
             unset($this->items[$id]);
         }
+    }
+
+    public function order(){
+        return $this->belongsTo(Cart::class);
     }
 }

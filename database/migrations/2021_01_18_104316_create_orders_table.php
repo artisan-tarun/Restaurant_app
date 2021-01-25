@@ -17,9 +17,6 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
-            $table->longText('cart');
-            $table->integer('quantity');
-            $table->decimal('amount', 10, 2);
             $table->string('status');
             $table->softDeletes();
             $table->timestamps();
